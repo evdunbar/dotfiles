@@ -17,7 +17,16 @@ export RANGER_LOAD_DEFAULT_RC='FALSE'
 # Functions
 # Used in .bashrc
 parse_git_branch () {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ branch \1/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/  \1/'
+}
+
+parse_conda_env () {
+    if [ -z "$CONDA_DEFAULT_ENV" ]
+    then
+        echo ""
+    else
+        echo "  $CONDA_DEFAULT_ENV"
+    fi
 }
 
 # File management
@@ -30,10 +39,6 @@ showuni () {
     echo -e "\u$1"
 }
 
-ghr () {
-    "https://github.com/$1"
-}
-
 
 # Aliases
 # File management
@@ -41,7 +46,7 @@ alias ls='ls --color=auto'
 alias lsa='ls -a'
 
 # Package manager shortened commands
-alias xn='sudo xbps-install'
+alias xn='sudo xbps-install -S'
 alias xu='sudo xbps-install -Su'
 alias xq='xbps-query -R --regex -s'
 alias xr='sudo xbps-remove -R'
@@ -56,7 +61,7 @@ alias setbg='feh --bg-fill'
 #PS1='[\u@\h \W]\$ '
 #PS1=$"\[\033[0;32m\]\d:\t$ \[\033[0m\]"
 #   
-PS1="\[\033[0;34m\]\[\033[0m\]\[\033[0;30;2;44m\]\w\[\033[0;34;45m\]\[\033[0m\]\[\033[0;30;2;45m\]\$(parse_git_branch)\[\033[0m\]\[\033[0m\]\[\033[0;35;42m\]\[\033[0m\]\[\033[0;30;2;42m\] $\[\033[0m\]\[\033[0;32m\]\[\033[0m\] "
+PS1="\[\033[0;34m\]\[\033[0m\]\[\033[0;30;2;44m\] \W\[\033[0m\]\[\033[0;34;45m\]\[\033[0m\]\[\033[0;30;2;45m\]\$(parse_git_branch)\[\033[0m\]\[\033[0;35;43m\]\[\033[0m\]\[\033[0;30;2;43m\]\$(parse_conda_env)\[\033[0m\]\[\033[0;33;42m\]\[\033[0m\]\[\033[0;30;2;42m\] $\[\033[0m\]\[\033[0;32m\]\[\033[0m\] "
 PS2="\[\033[0;32m\]\[\033[0m\] "
 
 
