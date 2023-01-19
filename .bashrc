@@ -12,6 +12,8 @@
 
 # Variables
 export RANGER_LOAD_DEFAULT_RC='FALSE'
+export GDK_SCALE=2
+export SUDO_EDITOR="nvim"
 
 
 # Functions
@@ -25,13 +27,17 @@ parse_conda_env () {
     then
         echo ""
     else
-        echo "  $CONDA_DEFAULT_ENV"
+        echo "  $CONDA_DEFAULT_ENV"
     fi
 }
 
 # File management
 mkdirgo () {
     mkdir -p $1 && cd $1
+}
+
+cl () {
+    cd $1 && ls --color=auto
 }
 
 # Show unicode character
@@ -43,7 +49,8 @@ showuni () {
 # Aliases
 # File management
 alias ls='ls --color=auto'
-alias lsa='ls -a'
+alias la='ls -a'
+alias ll='ls -la'
 
 # Package manager shortened commands
 alias xn='sudo xbps-install -S'
@@ -51,16 +58,18 @@ alias xu='sudo xbps-install -Su'
 alias xq='xbps-query -R --regex -s'
 alias xr='sudo xbps-remove -R'
 
-alias chkin='xbps-query -l | grep -e'
+alias chckin='xbps-query -l | grep -e'
 
 # Set the background 
 alias setbg='feh --bg-fill'
+
+# Miscellaneous
+alias slack='slack-term'
 
 
 # Change prompt
 #PS1='[\u@\h \W]\$ '
 #PS1=$"\[\033[0;32m\]\d:\t$ \[\033[0m\]"
-#   
 PS1="\[\033[0;34m\]\[\033[0m\]\[\033[0;30;2;44m\] \W\[\033[0m\]\[\033[0;34;45m\]\[\033[0m\]\[\033[0;30;2;45m\]\$(parse_git_branch)\[\033[0m\]\[\033[0;35;43m\]\[\033[0m\]\[\033[0;30;2;43m\]\$(parse_conda_env)\[\033[0m\]\[\033[0;33;42m\]\[\033[0m\]\[\033[0;30;2;42m\] $\[\033[0m\]\[\033[0;32m\]\[\033[0m\] "
 PS2="\[\033[0;32m\]\[\033[0m\] "
 
@@ -79,3 +88,4 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
