@@ -6,15 +6,6 @@ return require('packer').startup(function(use)
     use 'nvim-lua/plenary.nvim'
 
     -- Colorschemes
-    use 'navarasu/onedark.nvim'
-
-    use 'catppuccin/nvim'
-
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-    })
-
     use 'EdenEast/nightfox.nvim'
 
     -- Appearance
