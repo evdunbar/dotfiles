@@ -14,6 +14,8 @@
 export RANGER_LOAD_DEFAULT_RC='FALSE'
 export GDK_SCALE=2
 export SUDO_EDITOR="nvim"
+export EDITOR="nvim"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 
 # Functions
@@ -40,6 +42,14 @@ cl () {
     cd $1 && ls --color=auto
 }
 
+backup () {
+    cp $1 $1.bak
+}
+
+mvdl () {
+    mv ~/Downloads/$1 .
+}
+
 # Show unicode character
 showuni () {
     echo -e "\u$1"
@@ -57,6 +67,10 @@ alias xn='sudo xbps-install -S'
 alias xu='sudo xbps-install -Su'
 alias xq='xbps-query -R --regex -s'
 alias xr='sudo xbps-remove -R'
+alias xo='sudo xbps-remove -o'
+
+alias tn='sudo tlmgr install'
+alias tq='tlmgr search --global'
 
 alias chckin='xbps-query -l | grep -e'
 
@@ -65,6 +79,8 @@ alias setbg='feh --bg-fill'
 
 # Miscellaneous
 alias slack='slack-term'
+alias classtime='cd ~/Documents && nvim'
+alias alldone='cd && clear'
 
 
 # Change prompt
@@ -88,4 +104,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
