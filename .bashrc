@@ -9,8 +9,12 @@
 #    . /etc/bash_completion
 #fi
 
+# Pywal enable
+(cat ~/.cache/wal/sequences &)
+source ~/.cache/wal/colors-tty.sh
 
 # Variables
+export PATH="$HOME/.local/bin/:$PATH"
 export RANGER_LOAD_DEFAULT_RC='FALSE'
 export GDK_SCALE=2
 export SUDO_EDITOR="nvim"
@@ -55,6 +59,11 @@ showuni () {
     echo -e "\u$1"
 }
 
+# Micromamba installation
+umn () {
+    micromamba install $@ -c conda-forge
+}
+
 
 # Aliases
 # File management
@@ -67,7 +76,7 @@ alias xn='sudo xbps-install -S'
 alias xu='sudo xbps-install -Su'
 alias xq='xbps-query -R --regex -s'
 alias xr='sudo xbps-remove -R'
-alias xo='sudo xbps-remove -o'
+alias xo='sudo xbps-remove -Oo'
 
 alias tn='sudo tlmgr install'
 alias tq='tlmgr search --global'
@@ -81,26 +90,27 @@ alias setbg='feh --bg-fill'
 alias slack='slack-term'
 alias classtime='cd ~/Documents && nvim'
 alias alldone='cd && clear'
+alias disas="objdump -drwCS -Mintel"
+alias um="micromamba"
 
 
 # Change prompt
-#PS1='[\u@\h \W]\$ '
-#PS1=$"\[\033[0;32m\]\d:\t$ \[\033[0m\]"
-PS1="\[\033[0;34m\]\[\033[0m\]\[\033[0;30;2;44m\] \W\[\033[0m\]\[\033[0;34;45m\]\[\033[0m\]\[\033[0;30;2;45m\]\$(parse_git_branch)\[\033[0m\]\[\033[0;35;43m\]\[\033[0m\]\[\033[0;30;2;43m\]\$(parse_conda_env)\[\033[0m\]\[\033[0;33;42m\]\[\033[0m\]\[\033[0;30;2;42m\] $\[\033[0m\]\[\033[0;32m\]\[\033[0m\] "
-PS2="\[\033[0;32m\]\[\033[0m\] "
+PS1="\[\033[0;94m\]\[\033[0m\]\[\033[0;90;2;104m\] \W\[\033[0m\]\[\033[0;94;105m\]\[\033[0m\]\[\033[0;90;2;105m\]\$(parse_git_branch)\[\033[0m\]\[\033[0;95;103m\]\[\033[0m\]\[\033[0;90;2;103m\]\$(parse_conda_env)\[\033[0m\]\[\033[0;93;102m\]\[\033[0m\]\[\033[0;90;2;102m\] \$\[\033[0m\]\[\033[0;92m\]\[\033[0m\] "
+PS2="\[\033[0;92m\]\[\033[0m\] "
 
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/evan/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE="/home/evan/.local/bin/micromamba";
+export MAMBA_ROOT_PREFIX="/home/evan/micromamba";
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+    eval "$__mamba_setup"
 else
-    if [ -f "/home/evan/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/evan/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/evan/micromamba/etc/profile.d/micromamba.sh" ]; then
+        . "/home/evan/micromamba/etc/profile.d/micromamba.sh"
     else
-        export PATH="/home/evan/miniconda3/bin:$PATH"
+        export  PATH="/home/evan/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
     fi
 fi
-unset __conda_setup
-# <<< conda initialize <<<
+unset __mamba_setup
+# <<< mamba initialize <<<
