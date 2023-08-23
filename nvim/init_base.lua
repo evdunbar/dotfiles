@@ -26,19 +26,3 @@
     vim.cmd('COQnow -s')
 
 -- THEME MANAGEMENT (DO NOT CHANGE)
-    require('nightfox').setup({
-        options = {
-            transparent = true
-        }
-    })
-
-    vim.cmd('colorscheme dayfox')
-
-    require('lualine').setup {
-        options = {
-            theme = 'dayfox',
-            component_separators = { left = '', right = '' },
-            section_separators = { left = '', right = '' }
-        }
-    }
-

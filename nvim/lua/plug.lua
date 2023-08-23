@@ -7,11 +7,21 @@ return require('packer').startup(function(use)
 
     -- Colorschemes
     use 'EdenEast/nightfox.nvim'
+    use { 'uZer/pywal16.nvim', as = 'pywal16' }
 
     -- Appearance
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
+    use 'nvim-tree/nvim-web-devicons'
+
+    -- Parsing/Filetypes
+    use {
+        'Fymyte/rasi.vim',
+        ft = { 'rasi' },
+        run = ':TSInstall rasi',
+        requires = { 'nvim-treesitter/nvim-treesitter' },
     }
 
     -- Functionality
@@ -35,4 +45,22 @@ return require('packer').startup(function(use)
     use {'ms-jpq/coq_nvim', branch = 'coq'}
 
     use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
+
+    use({
+        "okuuva/auto-save.nvim",
+        config = function()
+            require("auto-save").setup {
+                condition = function(buf)
+                    local fn = vim.fn
+
+                    -- don't save for special-buffers
+                    if fn.getbufvar(buf, "&buftype") ~= '' then
+                        return false
+                    end
+                    return true
+                end
+            }
+        end,
+    })
+
 end)

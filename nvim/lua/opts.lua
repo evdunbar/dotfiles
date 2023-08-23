@@ -3,6 +3,7 @@ local opt = vim.opt
 -- Context
 opt.number = true
 opt.scrolloff = 4
+opt.showmode = false
 
 -- Filetypes
 opt.encoding = 'utf8'
