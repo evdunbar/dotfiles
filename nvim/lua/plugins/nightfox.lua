@@ -3,21 +3,24 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-        require("nightfox").setup({options = { transparent = true }})
+        require("nightfox").setup({
+            options = {
+                transparent = true,
+                styles = {
+                    comments = "italic",
+                    conditionals = "bold",
+                    keywords = "italic",
+                    types = "italic,bold",
+                },
+            }
+        })
 
-        local file = io.open("/home/evan/Code/void/themes/current_theme.txt", "r")
-
-        if file then
-            local content = file:read("*line")
-            file:close()
-
-            if content == "light" then
-                COLOR_THEME = "dayfox"
-                vim.cmd("colo dayfox")
-            else
-                COLOR_THEME = "duskfox"
-                vim.cmd("colo duskfox")
-            end
+        if vim.o.background == "light" then
+            vim.cmd("colo dayfox")
+            COLOR_THEME = "dayfox"
+        else
+            vim.cmd("colo duskfox")
+            COLOR_THEME = "duskfox"
         end
     end,
 }
