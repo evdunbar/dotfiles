@@ -1,44 +1,17 @@
--- IMPORTS
-    require('vars')
-    require('opts')
-    -- require('keys')
-    require('plug')
+require("opts")
+require("vars")
 
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
--- PLUGINS
-    require('nvim-treesitter')
-
-    local builtin = require('telescope.builtin')
-    vim.keymap.set('n', '<Leader>ff', builtin.find_files, {})
-    vim.keymap.set('n', '<Leader>fg', builtin.live_grep, {})
-    vim.keymap.set('n', '<Leader>fb', builtin.buffers, {})
-    vim.keymap.set('n', '<Leader>fh', builtin.help_tags, {})
-
-    local lsp = require 'lspconfig'
-    local coq = require 'coq'
-
-    lsp.pyright.setup{coq.lsp_ensure_capabilities()}
-    lsp.ccls.setup{coq.lsp_ensure_capabilities()}
-    lsp.rust_analyzer.setup{coq.lsp_ensure_capabilities{settings = {['rust-analyzer'] = {checkOnSave = {command = 'clippy'}}}}}
-
-    require('coq')
-
-    vim.cmd('COQnow -s')
-
--- THEME MANAGEMENT (DO NOT CHANGE)
-    require('nightfox').setup({
-        options = {
-            transparent = true
-        }
-    })
-
-    vim.cmd('colorscheme dayfox')
-
-    require('lualine').setup {
-        options = {
-            theme = 'dayfox',
-            component_separators = { left = '', right = '' },
-            section_separators = { left = '', right = '' }
-        }
-    }
-
+require("lazy").setup("plugins")
