@@ -47,7 +47,7 @@ return {
             },
         },
     },
-    event = { "BufEnter *.c", "BufEnter *.cpp", "BufEnter *.lua", "BufEnter *.py", "BufEnter *.rs" },
+    event = { "VeryLazy", "BufEnter *.c", "BufEnter *.cpp", "BufEnter *.lua", "BufEnter *.py", "BufEnter *.rs" },
     config = function()
         require("mason").setup()
         require("mason-lspconfig").setup()

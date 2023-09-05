@@ -1,2 +1,2 @@
-vim.g.background = "light"
-vim.o.background = "light"
+vim.g.background = "dark"
+vim.o.background = "dark"
