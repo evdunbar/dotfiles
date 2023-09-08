@@ -14,12 +14,13 @@
 source ~/.cache/wal/colors-tty.sh
 
 # Variables
-export PATH="$HOME/.local/bin/:$PATH"
 export RANGER_LOAD_DEFAULT_RC='FALSE'
 export GDK_SCALE=2
 export SUDO_EDITOR="nvim"
 export EDITOR="nvim"
 export XDG_CONFIG_HOME="$HOME/.config"
+export PATH=/home/evan/.local/bin:$PATH
+export PATH=/home/evan/.cargo/bin:$PATH
 
 
 # Functions
@@ -38,7 +39,7 @@ parse_conda_env () {
 }
 
 # File management
-mkdirgo () {
+mkcdir () {
     mkdir -p $1 && cd $1
 }
 
@@ -62,6 +63,10 @@ showuni () {
 # Micromamba installation
 umn () {
     micromamba install $@ -c conda-forge
+}
+
+md2pdf () {
+    pandoc -V geometry:margin=1in -i $1.md -o $1.pdf
 }
 
 
@@ -92,6 +97,7 @@ alias classtime='cd ~/Documents && nvim'
 alias alldone='cd && clear'
 alias disas="objdump -drwCS -Mintel"
 alias um="micromamba"
+alias zath='~/.local/bin/zathura'
 
 
 # Change prompt
@@ -114,3 +120,4 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
+

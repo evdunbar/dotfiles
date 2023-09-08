@@ -190,8 +190,8 @@ font:
 colors:
   # Default colors
   primary:
-    background: '#f6f2ee'
-    foreground: '#3d2b5a'
+    background: '#202020'
+    foreground: '#cccccc'
 
     # Bright and dim foreground colors
     #
@@ -284,25 +284,47 @@ colors:
 
   # Normal colors
   normal:
-    black:   '#352c24'
-    red:     '#a5222f'
-    green:   '#396847'
-    yellow:  '#ac5402'
-    blue:    '#2848a9'
-    magenta: '#6e33ce'
-    cyan:    '#287980'
-    white:   '#f2e9e1'
+  # Duskfox
+    black:   '#393552'
+    red:     '#eb6f92'
+    green:   '#a3be8c'
+    yellow:  '#f6c177'
+    blue:    '#569fba'
+    magenta: '#c4a7e7'
+    cyan:    '#9ccfd8'
+    white:   '#e0def4'
+
+  # Campbell
+  #  black:   '#0c0c0c'
+  #  red:     '#c50f1f'
+  #  green:   '#13a10e'
+  #  yellow:  '#c19c00'
+  #  blue:    '#0037da'
+  #  magenta: '#881798'
+  #  cyan:    '#3196dd'
+  #  white:   '#cccccc'
 
   # Bright colors
   bright:
-    black:   '#534b44'
-    red:     '#b3434e'
-    green:   '#577f63'
-    yellow:  '#b86e28'
-    blue:    '#4863b6'
-    magenta: '#8452d5'
-    cyan:    '#488d93'
-    white:   '#f4ece6'
+  # Duskfox
+    black:   '#47407d'
+    red:     '#f083a2'
+    green:   '#b1d196'
+    yellow:  '#f9cb8c'
+    blue:    '#65b1cd'
+    magenta: '#ccb1ed'
+    cyan:    '#a6dae3'
+    white:   '#e2e0f7'
+
+  # Campbell
+  #  black:   '#767676'
+  #  red:     '#e74856'
+  #  green:   '#16c60c'
+  #  yellow:  '#f9f1a5'
+  #  blue:    '#3b78ff'
+  #  magenta: '#b4009e'
+  #  cyan:    '#61d6d6'
+  #  white:   '#f2f2f2'
 
   # Dim colors
   #
