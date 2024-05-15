@@ -1,2 +1,2 @@
 # dotfiles
-Dotfiles for friends and strangers to reference. Originally used on Void Linux.
+Dotfiles for friends and strangers to reference. Used on Arch GNU/Linux.

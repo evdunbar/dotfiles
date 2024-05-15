@@ -4,23 +4,22 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Add bash completion
-#if [ -f /etc/bash_completion ]; then
-#    . /etc/bash_completion
-#fi
+# vi keybindings
+set -o vi
 
-# Pywal enable
-(cat ~/.cache/wal/sequences &)
-source ~/.cache/wal/colors-tty.sh
+# Add bash completion
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
+
 
 # Variables
-export RANGER_LOAD_DEFAULT_RC='FALSE'
-export GDK_SCALE=2
+. $HOME/Code/os/xdg_exports.sh
 export SUDO_EDITOR="nvim"
 export EDITOR="nvim"
-export XDG_CONFIG_HOME="$HOME/.config"
-export PATH=/home/evan/.local/bin:$PATH
-export PATH=/home/evan/.cargo/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$XDG_DATA_HOME/cargo/bin:$PATH
+export LIBVA_DRIVER_NAME="i965"
+export npm_config_prefix="$HOME/.local"
 
 
 # Functions
@@ -44,15 +43,11 @@ mkcdir () {
 }
 
 cl () {
-    cd $1 && ls --color=auto
+    cd $1 && eza
 }
 
 backup () {
     cp $1 $1.bak
-}
-
-mvdl () {
-    mv ~/Downloads/$1 .
 }
 
 # Show unicode character
@@ -65,59 +60,57 @@ umn () {
     micromamba install $@ -c conda-forge
 }
 
-md2pdf () {
-    pandoc -V geometry:margin=1in -i $1.md -o $1.pdf
+# Others
+topdf () {
+    pandoc -V geometry:margin=1in -i $1.$2 -o $1.pdf
 }
 
 
 # Aliases
 # File management
-alias ls='ls --color=auto'
-alias la='ls -a'
-alias ll='ls -la'
+alias ls="eza"
+alias la="eza -A"
+alias ll="eza -lAh"
 
 # Package manager shortened commands
-alias xn='sudo xbps-install -S'
-alias xu='sudo xbps-install -Su'
-alias xq='xbps-query -R --regex -s'
-alias xr='sudo xbps-remove -R'
-alias xo='sudo xbps-remove -Oo'
+alias pn="sudo pacman -Sy"
+alias pu="sudo pacman -Syu"
+alias pq="pacman -Ss"
+alias pr="sudo pacman -Rs"
+alias pf="pacman -F"
 
-alias tn='sudo tlmgr install'
-alias tq='tlmgr search --global'
-
-alias chckin='xbps-query -l | grep -e'
-
-# Set the background 
-alias setbg='feh --bg-fill'
+alias pui="pip install --user --break-system-packages"
+alias um="micromamba"
+alias uma="micromamba activate"
+alias umd="micromamba deactivate"
 
 # Miscellaneous
-alias slack='slack-term'
-alias classtime='cd ~/Documents && nvim'
-alias alldone='cd && clear'
-alias disas="objdump -drwCS -Mintel"
-alias um="micromamba"
-alias zath='~/.local/bin/zathura'
+alias classtime="cd $HOME/Documents && nvim"
+alias alldone="cd && micromamba deactivate && clear"
+alias acli="arduino-cli"
+alias nm-scan="nmcli device wifi list 1> /dev/null"
+alias neofetch="fastfetch -c neofetch.jsonc"
 
 
 # Change prompt
-PS1="\[\033[0;94m\]\[\033[0m\]\[\033[0;90;2;104m\] \W\[\033[0m\]\[\033[0;94;105m\]\[\033[0m\]\[\033[0;90;2;105m\]\$(parse_git_branch)\[\033[0m\]\[\033[0;95;103m\]\[\033[0m\]\[\033[0;90;2;103m\]\$(parse_conda_env)\[\033[0m\]\[\033[0;93;102m\]\[\033[0m\]\[\033[0;90;2;102m\] \$\[\033[0m\]\[\033[0;92m\]\[\033[0m\] "
-PS2="\[\033[0;92m\]\[\033[0m\] "
+if [[ -z $DISPLAY ]] ; then
+    PS1="\[\033[92m\][\h] \[\033[0m\]\W \[\033[33m\]\$ \[\033[0m\]"
+    PS2="\[\033[32m\]> "
+else
+    PS1="\[\033[94m\]\[\033[0m\]\[\033[30;104m\] \W\[\033[0m\]\[\033[94;105m\]\[\033[0m\]\[\033[30;105m\]\$(parse_git_branch)\[\033[0m\]\[\033[95;103m\]\[\033[0m\]\[\033[30;103m\]\$(parse_conda_env)\[\033[0m\]\[\033[93;102m\]\[\033[0m\]\[\033[30;102m\] \$\[\033[0m\]\[\033[92m\]\[\033[0m\] "
+    PS2="\[\033[0;92m\]\[\033[0m\] "
+fi
+
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="/home/evan/.local/bin/micromamba";
-export MAMBA_ROOT_PREFIX="/home/evan/micromamba";
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+export MAMBA_EXE='/home/evan/.local/bin/micromamba';
+export MAMBA_ROOT_PREFIX='/home/evan/Code/micromamba';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
 else
-    if [ -f "/home/evan/micromamba/etc/profile.d/micromamba.sh" ]; then
-        . "/home/evan/micromamba/etc/profile.d/micromamba.sh"
-    else
-        export  PATH="/home/evan/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
-    fi
+    alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
-

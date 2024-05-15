@@ -3,9 +3,15 @@
 # Get the aliases and functions
 [ -f $HOME/.bashrc ] && . $HOME/.bashrc
 
-# Autostart X at login
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    exec startx
+# Autostart graphical interface at login
+if [[ -z $DISPLAY ]] ; then
+    if [[ $(tty) = /dev/tty1 ]] ; then
+        exec dbus-run-session Hyprland
+    elif [[ $(tty) = /dev/tty2 ]] ; then
+        startx
+    fi
 fi
 
-. "$HOME/.cargo/env"
+# Add zsh-like pre cmd hooks
+source $HOME/Code/os/bash_preexec.sh
+source $HOME/Code/os/shell_integration.bash
