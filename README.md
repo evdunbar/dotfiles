@@ -1,6 +1,8 @@
 # Dotfiles
 Dotfiles for friends and strangers to reference. Used on Arch GNU/Linux.
 
+I would NOT recommend installing and copying willy-nilly. Things will break. I have made no attempt at an install script, and this repo is meant to be used as inspiration rather than for distribution.
+
 ## Applications Included
 - Bash
 - Eww
