@@ -1,0 +1,22 @@
+* {
+    all: unset;
+}
+
+@import '/home/evan/.cache/wal/colors.scss';
+
+window {
+    font-family: "SF Pro Text", "Symbols Nerd Font";
+    border: 3px solid $color8;
+    border-radius: 15.5px;
+    background: $color10;
+    color: $color0;
+    font-size: 0.65em;
+
+    & > * {
+      margin: 6px;
+    }
+}
+
+.important { font-weight: bold; }
+
+.nerd { font-size: 1.6em; }

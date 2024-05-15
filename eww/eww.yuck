@@ -1,0 +1,128 @@
+(defwidget datetime []
+    (centerbox :class "datetime"
+               :valign "start"
+               :vexpand false
+               :orientation "vertical"
+        (box :orientation "vertical"
+             :valign "start"
+            (label :class "important" :justify "center" :text "󰃭
+${day_word}"))
+        (box :orientation "vertical"
+             :valign "center"
+            (label :justify "center" :text "${year}
+${month}
+${day}"))
+        (box :orientation "vertical"
+             :valign "end"
+            (label :class "important" :justify "center" :text "
+ 
+󰅐
+${hour}
+${min}"))))
+
+
+(defwidget workspaces []
+    (box :class "workspaces"
+         :valign "center"
+         :vexpand true
+         :orientation "vertical"
+        (label :class "nerd" :text wsinfo)))
+
+
+(defwidget statuses []
+    (box :class "status"
+         :valign "end"
+         :vexpand true
+         :orientation "vertical"
+        (box :orientation "vertical"
+             :valign "start"
+            (audio :level sound :status muted)
+            (notifications :status notifs)
+            (wifi :level networkcon)
+            (battery :level {EWW_BATTERY.BAT0.capacity}
+                     :status {EWW_BATTERY.BAT0.status}))))
+
+(defwidget audio [level status]
+    (eventbox :active true :cursor "pointer" :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        (label :class "nerd" :text {status == "" ? level < 0.34 ? "󰕿" :
+            level < 0.66 ? "󰖀" : "󰕾" : "󰝟"})))
+
+(defwidget notifications [status]
+    (eventbox :active true :cursor "pointer" :onclick {status == 2 ? "makoctl mode -r do-not-disturb" : "makoctl mode -a do-not-disturb"}
+        (label :class "nerd" :text {status == 2 ? "󱙎" : "󰍪"})))
+
+(defwidget wifi [level]
+    (label :class "nerd" :text {level == "" ? "󰤫" : 
+        level < 15 ? "󰤟" :
+            level < 30 ? "󰤢" :
+                level < 45 ? "󰤥" : "󰤨" }))
+
+(defwidget battery [level status]
+    (label :class "nerd" :text {level < 10 ? status == "Discharging" ? "󱃍" : "󰢟" :
+        level < 20 ? status == "Discharging" ? "󰁺" : "󰢜" :
+            level < 30 ? status == "Discharging" ? "󰁻" : "󰂆" :
+                level < 40 ? status == "Discharging" ? "󰁼" : "󰂇" :
+                    level < 50 ? status == "Discharging" ? "󰁽" : "󰂈" :
+                        level < 60 ? status == "Discharging" ? "󰁾" : "󰢝" :
+                            level < 70 ? status == "Discharging" ? "󰁿" : "󰂉" :
+                                level < 80 ? status == "Discharging" ? "󰂀" : "󰢞" :
+                                    level < 90 ? status == "Discharging" ? "󰂁" : "󰂊" :
+                                        level < 100 ? status == "Discharging" ? "󰂂" : "󰂋" : "󱈑"}))
+
+
+(defpoll day_word :interval "10m" "date +%a")
+(defpoll year     :interval "1h"  "date +%y")
+(defpoll month    :interval "1h"  "date +%m")
+(defpoll day      :interval "10m" "date +%d")
+
+(defpoll hour :interval "1s" "date +%H")
+(defpoll min  :interval "1s" "date +%M")
+
+(defpoll wsinfo :interval "0.2s" "bash ~/.config/eww/workspaces.sh")
+
+(defpoll muted :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ print $3 }'")
+(defpoll sound :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{ print $2 }'")
+
+(defpoll notifs :interval "1s" "makoctl mode | wc -l")
+
+(defpoll networkcon :interval "5s" "cat /proc/net/wireless | awk 'NR==3 {print $3}' | sed s/\\\\.//g")
+
+
+(defwindow top_bar
+    :monitor 0
+    :stacking "bg"
+    :exclusive true
+    :focusable false
+    :namespace "bar"
+    :geometry (geometry :x "0%"
+                        :y "1.6%"
+                        :width "2.5%"
+                        :height "1%"
+                        :anchor "top left")
+    (datetime))
+
+(defwindow middle_bar
+    :monitor 0
+    :stacking "bg"
+    :exclusive false
+    :focusable false
+    :namespace "bar"
+    :geometry (geometry :x "0%"
+                        :y "0%"
+                        :width "2.5%"
+                        :height "1%"
+                        :anchor "center left")
+    (workspaces))
+
+(defwindow bottom_bar
+    :monitor 0
+    :stacking "bg"
+    :exclusive true
+    :focusable false
+    :namespace "bar"
+    :geometry (geometry :x "0%"
+                        :y "1.66%"
+                        :width "2.5%"
+                        :height "1%"
+                        :anchor "bottom left")
+    (statuses))

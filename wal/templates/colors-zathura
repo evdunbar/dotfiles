@@ -1,0 +1,51 @@
+set window-title-basename "true"
+set selection-clipboard "clipboard"
+
+
+set notification-error-bg       "{color5}" # Red
+set notification-error-fg       "{foreground}" # Foreground
+set notification-warning-bg     "{color6}" # Orange
+set notification-warning-fg     "{foreground}" # Selection
+set notification-bg             "{background}" # Background
+set notification-fg             "{foreground}" # Foreground
+
+set completion-bg               "{background}" # Background
+set completion-fg               "{color7}" # Comment
+set completion-group-bg         "{background}" # Background
+set completion-group-fg         "{color7}" # Comment
+set completion-highlight-bg     "{color8}" # Selection
+set completion-highlight-fg     "{foreground}" # Foreground
+
+set index-bg                    "{background}" # Background
+set index-fg                    "{foreground}" # Foreground
+set index-active-bg             "{color8}" # Current Line
+set index-active-fg             "{foreground}" # Foreground
+
+set inputbar-bg                 "{background}" # Background
+set inputbar-fg                 "{foreground}" # Foreground
+set statusbar-bg                "{background}" # Background
+set statusbar-fg                "{foreground}" # Foreground
+
+set highlight-color             "{color2}" # Orange
+set highlight-active-color      "{color10}" # Pink
+
+set default-bg                  "{background}" # Background
+set default-fg                  "{foreground}" # Foreground
+
+set render-loading              true
+set render-loading-fg           "{background}" # Background
+set render-loading-bg           "{foreground}" # Foreground
+
+#
+# Recolor mode settings
+#
+
+set recolor-keephue             true
+set recolor-lightcolor          "{background}" # Background
+set recolor-darkcolor           "{foreground}" # Foreground
+
+#
+# Startup options
+#
+set adjust-open width
+set recolor true
