@@ -20,6 +20,7 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$XDG_DATA_HOME/cargo/bin:$PATH
 export LIBVA_DRIVER_NAME="i965"
 export npm_config_prefix="$HOME/.local"
+export LS_COLORS=
 
 
 # Functions
@@ -77,7 +78,9 @@ alias pn="sudo pacman -Sy"
 alias pu="sudo pacman -Syu"
 alias pq="pacman -Ss"
 alias pr="sudo pacman -Rs"
+alias po="sudo pacman -Qdtq | sudo pacman -Rns -"
 alias pf="pacman -F"
+alias pi="pacman -Qi"
 
 alias pui="pip install --user --break-system-packages"
 alias um="micromamba"
