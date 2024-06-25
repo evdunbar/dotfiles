@@ -2,6 +2,7 @@ local opt = vim.opt
 
 -- Context
 opt.number = true
+opt.relativenumber = true
 opt.scrolloff = 4
 opt.showmode = false
 

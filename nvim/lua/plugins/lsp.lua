@@ -5,7 +5,7 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"hrsh7th/cmp-nvim-lsp",
-			"folke/neodev.nvim",
+			"folke/lazydev.nvim",
 			"pmizio/typescript-tools.nvim",
 			"p00f/clangd_extensions.nvim",
 		},
@@ -19,7 +19,6 @@ return {
 			)
 
 			-- pre-LSP setups
-			require("neodev").setup({})
 			require("typescript-tools").setup({ on_attach = REGISTER_SERVER("tsserver"), capabilities = capabilities })
 
 			-- LSP server setups
@@ -119,6 +118,13 @@ return {
 				end,
 				desc = "Code actions",
 			},
+			{
+				"<leader>lr",
+				function()
+					vim.lsp.buf.rename()
+				end,
+				desc = "Rename symbol",
+			},
 		},
 	},
 	{
@@ -135,5 +141,9 @@ return {
 			})
 		end,
 		event = "BufReadPre",
+	},
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
 	},
 }

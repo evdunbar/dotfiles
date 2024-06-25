@@ -1,10 +1,5 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	dependencies = {
-		{
-			"luckasRanarison/tree-sitter-hyprlang",
-		},
-	},
 	config = function()
 		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
@@ -51,6 +46,11 @@ return {
 				"haskell",
 				"printf",
 				"matlab",
+				"zig",
+				"zathurarc",
+				"requirements",
+				"regex",
+				"julia",
 			},
 			sync_install = false,
 			highlight = {
